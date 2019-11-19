@@ -14,12 +14,12 @@
   
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
+    <% if @user.measurements.any? %>
+      <h3>Measurements (<%= @user.measurements.count %>)</h3>
+      <ol class="measurements">
+        <%= render @measurements %>
       </ol>
-      <%= will_paginate @microposts %>
+      <%= will_paginate @measurements %>
     <% end %>
   </div>
 </div>
