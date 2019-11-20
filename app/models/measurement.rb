@@ -1,10 +1,9 @@
 class Measurement < ApplicationRecord
-  belongs_to :user
+  has_many :records, dependent: :destroy
+  has_many :users, through: :records
   
   default_scope -> { order(created_at: :desc) }
   
-  validates :user_id,
-    presence: true
   validates :event,
     presence: true
 =begin

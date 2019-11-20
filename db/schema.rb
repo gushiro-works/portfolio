@@ -10,17 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191119062336) do
+ActiveRecord::Schema.define(version: 20191120034454) do
 
   create_table "measurements", force: :cascade do |t|
-    t.integer "user_id"
     t.string "event"
     t.string "unit"
-    t.string "type"
+    t.string "value_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "created_at", "event"], name: "index_measurements_on_user_id_and_created_at_and_event"
-    t.index ["user_id"], name: "index_measurements_on_user_id"
+    t.index ["created_at", "event"], name: "index_measurements_on_created_at_and_event"
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -31,6 +29,16 @@ ActiveRecord::Schema.define(version: 20191119062336) do
     t.string "picture"
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "measurement_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["measurement_id"], name: "index_records_on_measurement_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|

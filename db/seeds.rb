@@ -22,10 +22,18 @@ users = User.order(:created_at).take(6)
 50.times do
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.microposts.create!(content: content) }
-  users.each { |user| user.measurements.create!(event: content) }
 end
 
 =begin
+firstUser = User.find(1)
+firstUser.Measurement.create!(event: "今日腹筋何回やった？", unit: "回", type: "no_limit_N")
+firstUser.Measurement.create!(event: "今日の体重は？", unit: "kg", type: "no_limit_N")
+firstUser.Measurement.create!(event: "タバコを何本吸った？", unit: "kg", type: "no_limit_N")
+firstUser.Measurement.create!(event: "部屋の掃除をした？", unit: "", type: "yes_or_no")
+firstUser.Measurement.create!(event: "何時間勉強した？", unit: "時間", type: "no_limit_N")
+
+  
+
 users = User.order(:created_at).take(6)
 50.times do
   content = Faker::Lorem.sentence(5)
