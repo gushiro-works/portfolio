@@ -1,4 +1,10 @@
 <li id="measurement-<%= measurement.id %>">
-  <h2 class="event"><%= measurement.event %></h2>
-  <p>hi</p>
+  <table>
+    <tr>
+      <td class="event"><%= measurement.event %></td>
+      <td>　レコードバリュー　</td>
+      <td class="unit"><%= measurement.unit %></td>
+      <td class="value_type"><%= measurement.value_type %></td>
+    </tr>
+  </table>
 </li>

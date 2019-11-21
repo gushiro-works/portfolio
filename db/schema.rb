@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20191120034454) do
   create_table "records", force: :cascade do |t|
     t.integer "user_id"
     t.integer "measurement_id"
-    t.string "value"
+    t.integer "record_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["measurement_id"], name: "index_records_on_measurement_id"

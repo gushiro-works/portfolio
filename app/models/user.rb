@@ -88,11 +88,11 @@ class User < ApplicationRecord
   # current_user.feed
   # current_user.id
   # current_user.microposts
-  def feed
-    #following_ids = "SELECT followed_id FROM relationships
-    #                 WHERE follower_id = :user_id"
-    Measurement.where("user_id = ?", self.id)
-  end
+  #def feed
+  #  record_ids = "SELECT measurement_id FROM records
+  #                   WHERE user_id = :user_id"
+  #  Measurement.where("user_id IN (#{record_ids})")
+  #end
 
   def follow(other_user)
     self.active_relationships.create(followed_id: other_user.id)

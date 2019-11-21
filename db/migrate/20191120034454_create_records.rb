@@ -3,7 +3,7 @@ class CreateRecords < ActiveRecord::Migration[5.1]
     create_table :records do |t|
       t.references :user, foreign_key: true
       t.references :measurement, foreign_key: true
-      t.string :value
+      t.integer :record_value
 
       t.timestamps
     end

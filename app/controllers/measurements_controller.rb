@@ -4,20 +4,17 @@ class MeasurementsController < ApplicationController
 
   def new
     @measurement = Measurement.new
-    @measurement.users << current_user
   end
 
   def create
-    @measurement = Measurement.new(measurement_params)#@measurement = current_user.measurements.new(measurement_params)
-    current_user.records.build(record_params)
-    #@record = current_user.records.where(measurement_id: params[:id])
-    #@record.value = "hoge"
+    @measurement = current_user.measurements.new(measurement_params)
+    @measurement.users << current_user
     if @measurement.save
       flash[:success] = "新しい計測の追加に成功しました"
       redirect_to root_url
     else
       flash[:danger] = "新しい計測の追加に失敗しました"
-      @feed_items = current_user.feed.paginate(page: params[:page])
+      @feed_items = current_user.measurements.paginate(page: params[:page])#@feed_items = current_user.feed.paginate(page: params[:page])
       render 'static_pages/home'
     end
   end
@@ -31,7 +28,7 @@ class MeasurementsController < ApplicationController
   end
 
   private
-
+    
     def measurement_params
       params.require(:measurement).permit(:event, :unit, :value_type)
     end
