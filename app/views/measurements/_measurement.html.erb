@@ -5,6 +5,7 @@
       <td>　レコードバリュー　</td>
       <td class="unit"><%= measurement.unit %></td>
       <td class="value_type"><%= measurement.value_type %></td>
+      <td class="new_record"><%= link_to "記録する", new_record_path(:measurement_id => measurement.id), class: "btn btn-lg btn-primary" %></td>
     </tr>
   </table>
 </li>
