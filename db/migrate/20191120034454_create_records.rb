@@ -8,5 +8,5 @@ class CreateRecords < ActiveRecord::Migration[5.1]
       t.timestamps
     end
   end
-  #add_index :records, :record_value
+  #add_index :records, :created_at
 end

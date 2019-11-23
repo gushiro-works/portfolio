@@ -24,6 +24,21 @@ users = User.order(:created_at).take(6)
   users.each { |user| user.microposts.create!(content: content) }
 end
 
+
+Measurement.create!(event: "腹筋何回やった？", unit: "回")
+Measurement.create!(event: "小説何文字書いた？", unit: "文字")
+Measurement.create!(event: "何時間勉強した？", unit: "時間")
+#User.find(4).measurements.create!(event: "？", unit: "kg")
+#User.find(5).measurements.create!(event: "腹筋何回やった？", unit: "回")
+#User.find(6).measurements.create!(event: "小説何文字書いた？", unit: "文字")
+
+#100.times do
+#  random = rand(3)
+#  Record.create!(user_id: random*3, measurement_id: random, record_value: random*20)
+#end
+
+
+
 =begin
 firstUser = User.find(1)
 firstUser.Measurement.create!(event: "今日腹筋何回やった？", unit: "回", type: "no_limit_N")

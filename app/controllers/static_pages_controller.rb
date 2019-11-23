@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
     if logged_in?
       #@measurement  = current_user.measurements.build　　measurementsコントローラのnewアクションで行っているのでコメントアウト
       @feed_items = current_user.measurements.paginate(page: params[:page])#@feed_items = current_user.feed.paginate(page: params[:page])
+      @records = current_user.records
     end
 
     # app/views/リソース名/アクション名.html.erb

@@ -2,12 +2,18 @@ class RecordsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   #before_action :correct_user,   only: :destroy
 
+  def index
+    redirect_to root_path
+  end
+
   def new
     @record = Record.new
   end
 
   def create
-    @record = current_user.records.build(record_params)
+    @measurement = Measurement.find(params[:measurement_id])
+    @record = @measurement.records.build(record_params)
+    @record.user_id = current_user.id
     if @record.save
       flash[:success] = "新しい記録の追加に成功しました"
       redirect_to root_url
@@ -21,7 +27,7 @@ class RecordsController < ApplicationController
   private
     
     def record_params
-      params.require(:record).permit(:record_value, :measurement_id)
+      params.require(:record).permit(:record_value)
     end
     
 end

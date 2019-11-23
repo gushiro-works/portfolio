@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:record, url: records_path) do |f| %>
+    <%= form_for(:record, url: measurement_records_path) do |f| %>
       <%= f.label :record_value %>
       <%= f.number_field :record_value, class: 'form-control' %>
       

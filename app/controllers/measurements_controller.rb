@@ -2,6 +2,14 @@ class MeasurementsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
+  def index
+    redirect_to root_path
+  end
+  
+  def show
+    @measurement = Measurement.find(params[:id])
+  end
+
   def new
     @measurement = Measurement.new
   end

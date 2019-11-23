@@ -1,11 +1,11 @@
 <li id="measurement-<%= measurement.id %>">
-  <table>
+  <table class="table">
     <tr>
-      <td class="event"><%= measurement.event %></td>
-      <td>　レコードバリュー　</td>
+      <td class="event"><%= link_to measurement.event, measurement_path(measurement.id) %></td>
       <td class="unit"><%= measurement.unit %></td>
       <td class="value_type"><%= measurement.value_type %></td>
-      <td class="new_record"><%= link_to "記録する", new_record_path(:measurement_id => measurement.id), class: "btn btn-lg btn-primary" %></td>
+      <td class="record_value"><%= helper_latest_record(measurement.id) %></td>
+      <td class="new_record"><%= link_to "記録する", new_measurement_record_path(measurement.id), class: "btn btn-lg btn-primary" %></td>
     </tr>
   </table>
 </li>
