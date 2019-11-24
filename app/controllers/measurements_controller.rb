@@ -8,6 +8,7 @@ class MeasurementsController < ApplicationController
   
   def show
     @measurement = Measurement.find(params[:id])
+    @records = current_user.records.where(measurement_id: params[:id])
   end
 
   def new

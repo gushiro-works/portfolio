@@ -25,18 +25,20 @@ users = User.order(:created_at).take(6)
 end
 
 
-Measurement.create!(event: "腹筋何回やった？", unit: "回")
-Measurement.create!(event: "小説何文字書いた？", unit: "文字")
-Measurement.create!(event: "何時間勉強した？", unit: "時間")
+User.find(1).measurements.create!(event: "腹筋何回やった？", unit: "回")
+User.find(2).measurements.create!(event: "小説何文字書いた？", unit: "文字")
+User.find(3).measurements.create!(event: "何時間勉強した？", unit: "時間")
 #User.find(4).measurements.create!(event: "？", unit: "kg")
 #User.find(5).measurements.create!(event: "腹筋何回やった？", unit: "回")
 #User.find(6).measurements.create!(event: "小説何文字書いた？", unit: "文字")
 
-#100.times do
-#  random = rand(3)
-#  Record.create!(user_id: random*3, measurement_id: random, record_value: random*20)
-#end
 
+random = Random.new
+10.times do |n|
+      users.each { |user| user.records.create!(measurement_id: 1, record_value: random.rand(50), created_at: (n-1).days.ago)}
+      users.each { |user| user.records.create!(measurement_id: 2, record_value: random.rand(50), created_at: (n-1).days.ago)}
+      users.each { |user| user.records.create!(measurement_id: 3, record_value: random.rand(50), created_at: (n-1).days.ago)}
+end
 
 
 =begin

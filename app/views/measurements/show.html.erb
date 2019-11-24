@@ -1,1 +1,7 @@
-<p>hi</p>
+<h2><%= @measurement.event %></h2>
+<div><%= line_chart @records.group_by_day(:created_at).maximum(:record_value) %></div>
+<% if @records.any? %>
+  <ol class="records">
+    <%= render @records %>
+  </ol>
+<% end %>
