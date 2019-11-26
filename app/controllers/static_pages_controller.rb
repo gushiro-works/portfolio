@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   def home
     if logged_in?
       #@measurement  = current_user.measurements.build　　measurementsコントローラのnewアクションで行っているのでコメントアウト
-      @feed_items = current_user.measurements.paginate(page: params[:page])#@feed_items = current_user.feed.paginate(page: params[:page])
+      @feed_items = current_user.measurements.group(:measurement_id).paginate(page: params[:page])#@feed_items = current_user.feed.paginate(page: params[:page])
       @records = current_user.records
     end
 

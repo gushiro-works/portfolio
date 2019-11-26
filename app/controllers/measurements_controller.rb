@@ -9,6 +9,10 @@ class MeasurementsController < ApplicationController
   def show
     @measurement = Measurement.find(params[:id])
     @records = current_user.records.where(measurement_id: params[:id])
+    @allrecords = Record.where(measurement_id: params[:id])
+    @users_and_records = @allrecords.map do |allrecord|
+      [allrecord.user_id, [allrecord]]
+    end
   end
 
   def new

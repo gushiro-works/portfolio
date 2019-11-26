@@ -35,9 +35,11 @@ User.find(3).measurements.create!(event: "何時間勉強した？", unit: "時�
 
 random = Random.new
 10.times do |n|
-      users.each { |user| user.records.create!(measurement_id: 1, record_value: random.rand(50), created_at: (n-1).days.ago)}
-      users.each { |user| user.records.create!(measurement_id: 2, record_value: random.rand(50), created_at: (n-1).days.ago)}
-      users.each { |user| user.records.create!(measurement_id: 3, record_value: random.rand(50), created_at: (n-1).days.ago)}
+  3.times do |m|
+      users.each { |user| user.records.create!(measurement_id: 1, record_value: random.rand(50), created_at: (24*(n-1)-(m-1)).hours.ago)}
+      users.each { |user| user.records.create!(measurement_id: 2, record_value: random.rand(100..10000), created_at: (24*(n-1)-(m-1)).hours.ago)}
+      users.each { |user| user.records.create!(measurement_id: 3, record_value: random.rand(24), created_at: (24*(n-1)-(m-1)).hours.ago)}
+    end
 end
 
 
