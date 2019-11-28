@@ -18,3 +18,4 @@
 
 //= require chartkick
 //= require Chart.bundle
+//= require Chart.min

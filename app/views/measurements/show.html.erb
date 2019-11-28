@@ -1,7 +1,39 @@
 <h2><%= @measurement.event %></h2>
-<div><%= line_chart @users_and_records %></div>
+<div><canvas id="myChart" width="900" height="400"></canvas></div>
 <% if @records.any? %>
   <ol class="records">
     <%= render @records %>
   </ol>
 <% end %>
+
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: <%= @period.to_json.html_safe %>,
+        datasets: [
+          <% @measurement.users.group(:user_id).each do |user|  %>
+          {
+            //to_json.html_safe
+            label: "<%= user.name %>",
+            data: <%= (0..6).to_a.map {|i| @allrecords.where(user_id: user.id).where(created_at: (6-i).days.ago.all_day).maximum(:record_value)}.to_json.html_safe %>,
+            backgroundColor: 'rgba(255, 99, 132, 1.0)',
+            <% if user.id == current_user[:user_id] %>
+            borderColor: 'rgba(255, 50, 132, 1.0)',
+            <% else %>
+            borderColor: 'rgba(150, 150, 150, 0.3)',
+            <% end %>
+            fill: false
+          },
+          <% end %>
+        ]
+    },
+    options: {
+        title:  {
+          display: false,
+          text: "<%= @measurement.event %>"
+        }
+    }
+});
+</script>

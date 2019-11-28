@@ -10,9 +10,7 @@ class MeasurementsController < ApplicationController
     @measurement = Measurement.find(params[:id])
     @records = current_user.records.where(measurement_id: params[:id])
     @allrecords = Record.where(measurement_id: params[:id])
-    @users_and_records = @allrecords.map do |allrecord|
-      [allrecord.user_id, [allrecord]]
-    end
+    @period = (0..6).to_a.map {|i| (Time.now - (6-i).days).strftime("%Y/%m/%d""(#{ %w(日 月 火 水 木 金 土)[(Time.now - (6-i).days).wday]})")}
   end
 
   def new
