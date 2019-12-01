@@ -27,18 +27,20 @@ end
 
 User.find(1).measurements.create!(event: "腹筋何回やった？", unit: "回")
 User.find(2).measurements.create!(event: "小説何文字書いた？", unit: "文字")
-User.find(3).measurements.create!(event: "何時間勉強した？", unit: "時間")
-#User.find(4).measurements.create!(event: "？", unit: "kg")
-#User.find(5).measurements.create!(event: "腹筋何回やった？", unit: "回")
-#User.find(6).measurements.create!(event: "小説何文字書いた？", unit: "文字")
+User.find(3).measurements.create!(event: "プログラミング何時間勉強した？", unit: "時間")
+User.find(4).measurements.create!(event: "本何ページ読んだ？", unit: "ページ")
+User.find(5).measurements.create!(event: "（高校生限定）何時間勉強した？", unit: "時間")
 
 
 random = Random.new
-10.times do |n|
-      users.each { |user| user.records.create!(measurement_id: 1, record_value: random.rand(50), created_at: (24*(n-1)).hours.ago)}
-      users.each { |user| user.records.create!(measurement_id: 2, record_value: random.rand(100..10000), created_at: (24*(n-1)).hours.ago)}
-      users.each { |user| user.records.create!(measurement_id: 3, record_value: random.rand(24), created_at: (24*(n-1)).hours.ago)}
-end
+users.each { |user|
+  level = random.rand(3)
+  10.times do |n|
+    user.records.create!(measurement_id: 1, record_value: (10*level+random.rand(14)), created_at: (24*(n-1)).hours.ago)
+    user.records.create!(measurement_id: 2, record_value: (1000*level+random.rand(1400)), created_at: (24*(n-1)).hours.ago)
+    user.records.create!(measurement_id: 3, record_value: (4*level+random.rand(4)), created_at: (24*(n-1)).hours.ago)
+  end
+}
 
 
 =begin
@@ -56,7 +58,7 @@ users = User.order(:created_at).take(6)
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.measurements.create!(event: content) }
 end
-=end
+
 
 users = User.all
 user  = users.first
@@ -65,3 +67,4 @@ followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
 
+=end

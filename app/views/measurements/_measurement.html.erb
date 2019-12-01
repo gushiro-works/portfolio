@@ -1,12 +1,53 @@
 <li id="measurement-<%= measurement.id %>">
-  <table class="table">
-    <tr>
-      <td class="event"><%= link_to measurement.event, measurement_path(measurement.id) %></td>
-      <td>　あなたは　</td>
-      <td class="record_value"><%= current_user.records.where(measurement_id: measurement.id).order(created_at: :desc).take[:record_value] %></td>
-      <td class="unit"><%= measurement.unit %></td>
-      <td class="value_type"><%= measurement.value_type %></td>
-      <td class="new_record"><%= link_to "記録する", new_measurement_record_path(measurement.id), class: "btn btn-lg btn-primary" %></td>
-    </tr>
-  </table>
+    <table class="measurements-detail">
+      <tr>
+        <td class="event"><%= link_to measurement.event, measurement_path(measurement.id) %></td>
+        <% if current_user.records.where(measurement_id: measurement.id).where(created_at: Time.zone.now.all_day).any? %>
+        <td>　あなたは　</td>
+        <td class="record_value"><%= current_user.records.where(measurement_id: measurement.id).order(created_at: :desc).take[:record_value] %></td>
+        <td class="unit"><%= measurement.unit %></td>
+        <td class="value_type"><%= measurement.value_type %></td>
+        <td class="new_record"><%= link_to "記録する", new_measurement_record_path(measurement.id) %></td>
+        <% else %>
+        <td class="new_record"><%= link_to "記録する", new_measurement_record_path(measurement.id) %></td>
+        <% end %>
+      </tr>
+    </table>
+  <canvas id="myChart-<%= measurement.id %>" width="4" height="1"></canvas>
 </li>
+
+<script>
+var ctx = document.getElementById("myChart-<%= measurement.id %>").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ["","","","","","",""],
+        datasets: [
+          <% measurement.users.group(:user_id).each do |user|  %>
+          {
+            //to_json.html_safe
+            label: "<%= user.name %>",
+            data: <%= (0..6).to_a.map {|i| Record.where(measurement_id: measurement.id).where(user_id: user.id).where(created_at: (6-i).days.ago.all_day).maximum(:record_value)}.to_json.html_safe %>,
+            <% if user.id == session[:user_id] %>
+            backgroundColor: 'rgba(255, 99, 132, 1.0)',
+            borderColor: 'rgba(255, 50, 132, 1.0)',
+            <% else %>
+            backgroundColor: 'rgba(200, 200, 200, 0.5)',
+            borderColor: 'rgba(200, 200, 200, 0.5)',
+            <% end %>
+            fill: false
+          },
+          <% end %>
+        ]
+    },
+    options: {
+        title:  {
+          display: false,
+          text: "<%= measurement.event %>"
+        },
+        legend: {
+          display: false
+        }
+    }
+});
+</script>
