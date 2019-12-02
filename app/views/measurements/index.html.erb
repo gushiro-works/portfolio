@@ -1,0 +1,22 @@
+<% provide(:title, "計測") %>
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <h1>未参加の計測</h1>
+    <ol class="home-list">
+      <li><span><%= link_to "新規作成", new_measurement_path %></span>
+        <span>
+        <%= form_tag(measurements_path,:method => 'get') do %>
+        <span class="input-group">
+          <%= text_field_tag :search, params[:search], placeholder: "", class: "form-control" %>
+          <span class="input-group-btn">
+          <%= submit_tag '検索', :name => nil, class: "btn btn-primary" %>
+          </span>
+          </span>
+        </span>
+        <% end %>
+      </li>
+        <%= render @measurements %>
+      </ol>
+      <%= will_paginate @measurements %>
+  </div>
+</div>

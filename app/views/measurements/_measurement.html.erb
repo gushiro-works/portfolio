@@ -1,10 +1,11 @@
+<% record_today = current_user.records.where(measurement_id: measurement.id).where(created_at: Time.zone.now.all_day) %>
 <li id="measurement-<%= measurement.id %>">
     <table class="measurements-detail">
       <tr>
         <td class="event"><%= link_to measurement.event, measurement_path(measurement.id) %></td>
-        <% if current_user.records.where(measurement_id: measurement.id).where(created_at: Time.zone.now.all_day).any? %>
+        <% if record_today.any? %>
         <td>　あなたは　</td>
-        <td class="record_value"><%= current_user.records.where(measurement_id: measurement.id).order(created_at: :desc).take[:record_value] %></td>
+        <td class="record_value"><%= record_today.take[:record_value] %></td>
         <td class="unit"><%= measurement.unit %></td>
         <td class="value_type"><%= measurement.value_type %></td>
         <td class="new_record"><%= link_to "記録する", new_measurement_record_path(measurement.id) %></td>

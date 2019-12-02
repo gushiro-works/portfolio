@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
+  <div class="col-lg-6 col-lg-offset-3">
     <section class="user_info">
       <h1>
         <%= gravatar_for @user %>
@@ -8,15 +8,13 @@
       </h1>
     </section>
     <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
-  </aside>
+      <%= render 'shared/stats' %>
+    </section>
   
-  <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
-    <% if @user.measurements.any? %>
-      <h3>Measurements (<%= @user.measurements.count %>)</h3>
-      <ol class="measurements">
+    
+    <% if @measurements.any? %>
+      <ol class="home-list">
         <%= render @measurements %>
       </ol>
       <%= will_paginate @measurements %>

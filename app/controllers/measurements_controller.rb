@@ -3,7 +3,7 @@ class MeasurementsController < ApplicationController
   before_action :correct_user,   only: :destroy
 
   def index
-    redirect_to root_path
+    @measurements = Measurement.search(params[:search]).paginate(page: params[:page])
   end
   
   def show

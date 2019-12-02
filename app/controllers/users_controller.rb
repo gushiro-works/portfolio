@@ -13,9 +13,9 @@ class UsersController < ApplicationController
   # GET /users/:id
   def show
     @user       = User.find(params[:id])
-    @measurements = @user.measurements.paginate(page: params[:page])
-    # => app/views/users/show.html.erb
-    # debugger
+    @measurements = @user.measurements.group(:measurement_id).paginate(page: params[:page])
+    @records = @user.records
+    @period = (0..6).to_a.map {|i| (Time.now - (6-i).days).strftime("%Y/%m/%d""(#{ %w(日 月 火 水 木 金 土)[(Time.now - (6-i).days).wday]})")}
   end
   
 

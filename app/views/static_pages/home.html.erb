@@ -1,18 +1,4 @@
 <% if logged_in? %>
-<div class="row">
-  <div class="col-lg-6 col-lg-offset-3">
-    <ol class="home-list">
-      <li><%= link_to "新しい計測", new_measurement_path %></li>
-    
-    <% if @my_measurements.any? %>
-      
-        <%= render @my_measurements %>
-      </ol>
-      <%= will_paginate @my_measurements %>
-    <% end %>
-    
-  </div>
-</div>
 <% else %>
 
 <div class="center jumbotron">
