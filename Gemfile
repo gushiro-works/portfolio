@@ -22,7 +22,7 @@ gem 'jbuilder',     '2.7.0'
 gem 'chartkick'
 gem 'groupdate'
 gem 'chart-js-rails', '~> 0.1.4'
-gem 'gon', '~> 6.2.0'
+gem 'gon', '~> 6.4.0'
 
 
 group :development, :test do
